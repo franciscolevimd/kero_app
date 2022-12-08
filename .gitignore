@@ -1,0 +1,6 @@
+# packges, modules
+__pycache__/
+
+# distutils
+dist/
+*egg-info/
