@@ -1,0 +1,38 @@
+This is a doctest based regression suite for crypto/encryption.py
+Each '>>' line is run as if in a python shell, and counts as a test.
+The next line, if not '>>' is the expected output of the previous line.
+If anything doesn't match exactly (including trailing spaces), the test fails.
+
+
+>>> import os
+>>> from kero.crypto.encryption import encrypt_file_content, encrypt_file
+>>> from kero.crypto.keys import load_key
+
+
+>>> file_path = './tests/docs/plaintext/LoremIpsum.txt'
+>>> output_path = './tests/docs/encrypted/secret.ker'
+>>> file_path_not_found = './tests/docs/plaintext/NotFound.txt'
+>>> key_path = './tests/docs/keys/secret.key'
+>>> key = load_key(key_path)
+
+
+>>> def test_encrypt_file_content():
+... 	return len(encrypt_file_content(file_path, key)) > 0
+>>> test_encrypt_file_content()
+True
+
+
+>>> def test_encrypt_file():
+... 	encrypt_file(file_path, key_path, output_path)
+... 	return os.path.exists(output_path)
+>>> test_encrypt_file()
+True
+
+
+>>> def test_encrypt_file_not_found():
+... 	encrypt_file(file_path_not_found, key_path, output_path)
+... 	return os.path.exists(output_path)
+>>> test_encrypt_file_not_found()
+Traceback (most recent call last):
+	...
+FileNotFoundError: [Errno 2] No such file or directory: './tests/docs/plaintext/NotFound.txt'
