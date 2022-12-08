@@ -1,0 +1,23 @@
+This is a doctest based regression suite for utils/files.py
+Each '>>' line is run as if in a python shell, and counts as a test.
+The next line, if not '>>' is the expected output of the previous line.
+If anything doesn't match exactly (including trailing spaces), the test fails.
+
+
+>>> from kero.utils.files import check_output_file_name
+
+
+>>> check_output_file_name('master.txt', '')
+'master.txt.out'
+
+
+>>> check_output_file_name('master.txt', '', '.ker')
+'master.txt.ker'
+
+
+>>> check_output_file_name('master.txt', 'wambrita.ker')
+'wambrita.ker'
+
+
+>>> check_output_file_name('/media/floppy/master.txt', '/home/encrypt/wambrita.out', '.ker')
+'/home/encrypt/wambrita.out'
