@@ -4,3 +4,6 @@ __pycache__/
 # distutils
 dist/
 *egg-info/
+
+# tests
+tests/docs

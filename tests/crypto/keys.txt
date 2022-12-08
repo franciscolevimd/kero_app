@@ -1,0 +1,42 @@
+This is a doctest based regression suite for crypto/keys.py
+Each '>>' line is run as if in a python shell, and counts as a test.
+The next line, if not '>>' is the expected output of the previous line.
+If anything doesn't match exactly (including trailing spaces), the test fails.
+
+
+>>> import os
+>>> from kero.crypto.keys import build_key, load_key
+
+
+>>> file_path = './tests/docs/keys/secret.key'
+>>> file_path_not_found = './notfound/secret.key'
+
+
+>>> def test_build_key_file():
+... 	build_key(file_path)
+... 	return os.path.exists(file_path)
+>>> test_build_key_file()
+True
+
+
+>>> def test_build_key_file_path_not_found():
+... 	build_key(file_path_not_found)
+... 	return os.path.exists(file_path_not_found)
+>>> test_build_key_file_path_not_found()
+Traceback (most recent call last):
+	...
+FileNotFoundError: [Errno 2] No such file or directory: './notfound/secret.key'
+
+
+>>> def test_load_key():
+... 	return len(load_key(file_path)) > 0
+>>> test_load_key()
+True
+
+
+>>> def test_load_key_path_not_found():
+... 	return len(load_key(file_path_not_found)) > 0
+>>> test_load_key_path_not_found()
+Traceback (most recent call last):
+	...
+FileNotFoundError: [Errno 2] No such file or directory: './notfound/secret.key'
